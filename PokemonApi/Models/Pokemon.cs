@@ -9,5 +9,6 @@ public class Pokemon{
     public String Name {get; set;}
     public String Type{get; set;}
     public int Level {get; set;}
+    public String Weakness{get; set;}
     public Stats Stats{get; set;}
 }

@@ -6,11 +6,13 @@ public class PokemonEntity
     public string Name {get; set;}
     public string Type {get; set;}
     public int Level {get; set;}
+    public string Weakness{get; set;}
     public int Attack {get; set;}
 
     public int Defense {get; set;}
 
     public int Speed {get; set;}
+    
 
 
 }

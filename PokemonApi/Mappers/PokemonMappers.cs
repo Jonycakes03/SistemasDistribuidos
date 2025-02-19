@@ -13,12 +13,14 @@ public static class PokemonMapper{
         return new Pokemon{
             Id= entity.Id,
             Name = entity.Name,
-            Level = entity.Level, 
             Type = entity.Type,
+            Level = entity.Level, 
+            Weakness =  entity.Weakness,
             Stats = new Stats{
                 Attack = entity.Attack,
                 Defense = entity.Defense,
                 Speed = entity.Speed
+                
             }
         };
 
@@ -27,13 +29,15 @@ public static class PokemonMapper{
     public static PokemonResponseDto ToDto(this Pokemon pokemon){
         return new PokemonResponseDto{
             Id = pokemon.Id,
-            Level = pokemon.Level, 
             Name = pokemon.Name,
             Type = pokemon.Type,
+            Level = pokemon.Level, 
+            Weakness = pokemon.Weakness,
             Stats = new StatsDto{
                 Attack = pokemon.Stats.Attack,
                 Speed = pokemon.Stats.Speed,
                 Defense = pokemon.Stats.Defense
+                
             }
         };
     }

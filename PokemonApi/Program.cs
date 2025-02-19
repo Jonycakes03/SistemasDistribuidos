@@ -9,7 +9,7 @@ var Builder = WebApplication.CreateBuilder(args);
 Builder.Services.AddSoapCore();
 
 
-Builder.Services.AddSingleton<IPokemonService, PokemonService>();
+Builder.Services.AddScoped<IPokemonService, PokemonService>();
 Builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 
 Builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(Builder.Configuration.GetConnectionString("DefaultConnection"), 
