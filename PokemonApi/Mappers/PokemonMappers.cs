@@ -6,6 +6,18 @@ using PokemonApi.Models;
 namespace PokemonApi.Mappers;
 
 public static class PokemonMapper{
+    public static PokemonEntity ToEntity(this Pokemon pokemon){
+        return new PokemonEntity{
+            Id= pokemon.Id,
+            Name = pokemon.Name,
+            Type = pokemon.Type,
+            Level = pokemon.Level, 
+            Weakness =  pokemon.Weakness,
+            Attack = pokemon.Stats.Attack,
+            Defense = pokemon.Stats.Defense,
+            Speed = pokemon.Stats.Speed
+        };
+    }
     public static Pokemon ToModel(this PokemonEntity entity){
         if (entity is null){
             return null;
