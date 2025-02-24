@@ -24,6 +24,7 @@ func StartListening(port string, user string) {
 			fmt.Println("Error accepting connections:", err.Error())
 			continue
 		}
+
 		go handleConnection(conn)
 	}
 }
@@ -51,11 +52,6 @@ func receiveMessage(conn net.Conn) {
 		fmt.Print("Received: " + message)
 	}
 
-	/*
-		defer conn.Close()
-		reader := bufio.NewReader(conn)
-		message, _ := reader.ReadString('\n')
-		fmt.Print(message)*/
 }
 
 func sendMessage(conn net.Conn) {
@@ -71,15 +67,7 @@ func sendMessage(conn net.Conn) {
 		}
 		writer.Flush()
 	}
-	/*
-		fmt.Println("Connected to peer. Typer your message: ")
-		message := "this is the first message :)"
-		_, err := writer.WriteString(message)
-		if err != nil {
-			fmt.Println("Error sending message: ", err.Error())
-		}
-		writer.Flush()
-	*/
+
 }
 
 func handleConnection(conn net.Conn) {
