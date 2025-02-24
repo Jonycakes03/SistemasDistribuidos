@@ -1,4 +1,3 @@
-
 package peer
 
 import (
@@ -39,7 +38,6 @@ func ConnectToPeer(address string, user string) {
 	}
 	defer conn.Close()
 
-
 	handleConnection(conn)
 }
 
@@ -77,4 +75,3 @@ func handleConnection(conn net.Conn) {
 	go receiveMessage(conn)
 	sendMessage(conn)
 }
-

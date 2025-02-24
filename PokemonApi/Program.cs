@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -42,3 +43,30 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+=======
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using PokemonApi.Infrastructure;
+using PokemonApi.Repositories;
+using PokemonApi.Services;
+using SoapCore;
+
+var Builder = WebApplication.CreateBuilder(args);
+Builder.Services.AddSoapCore();
+
+
+Builder.Services.AddScoped<IPokemonService, PokemonService>();
+Builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+
+Builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(Builder.Configuration.GetConnectionString("DefaultConnection"), 
+ServerVersion.AutoDetect(Builder.Configuration.GetConnectionString("DefaultConnection"))));
+
+//Builder.Services.AddTransient<>();
+//Builder.Services.AddSingleton<>();
+
+var app = Builder.Build();
+
+app.UseSoapEndpoint<IPokemonService>("/pokemonService.svc",new SoapEncoderOptions());
+
+app.Run();
+>>>>>>> 0c6924dcc0b388388b090422146ae7816a619670
