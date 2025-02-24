@@ -43,15 +43,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-<<<<<<< HEAD
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[8.0.12, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.6.2, )"
-=======
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -73,7 +64,6 @@
             "SoapCore": {
               "target": "Package",
               "version": "[1.1.0.51, )"
->>>>>>> 0c6924dcc0b388388b090422146ae7816a619670
             }
           },
           "imports": [
@@ -95,11 +85,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405/PortableRuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
->>>>>>> 0c6924dcc0b388388b090422146ae7816a619670
         }
       }
     }
