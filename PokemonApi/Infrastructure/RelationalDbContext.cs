@@ -6,7 +6,13 @@ namespace PokemonApi.Infrastructure;
 
 public class RelationalDbContext : DbContext
 {
+    public DbSet<BookEntity> Books {get; set;}
     public DbSet<PokemonEntity> Pokemons {get; set;}
+    public DbSet<HobbyEntity> Hobbies {get; set;}
+    
+
+    
+
     public RelationalDbContext(DbContextOptions<RelationalDbContext> options) : base(options){
 
     }
@@ -27,6 +33,26 @@ public class RelationalDbContext : DbContext
             
 
         });
-    }
 
+         modelBuilder.Entity<HobbyEntity>(entity => {
+            entity.HasKey(s => s.Id);
+            entity.Property(s => s.Name).IsRequired().HasMaxLength(100);
+            entity.Property(s=> s.Top).IsRequired();
+            
+
+        });
+
+         modelBuilder.Entity<BookEntity>(entity => {
+            entity.HasKey(s => s.Id);
+            entity.Property(s => s.Title).IsRequired().HasMaxLength(100);
+            entity.Property(s=> s.Author).IsRequired();
+            entity.Property(s=> s.PublishedDate).IsRequired();
+
+            
+
+        });
+
+
+    }
 }
+    
