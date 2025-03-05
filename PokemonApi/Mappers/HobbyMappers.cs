@@ -45,4 +45,14 @@ public static class HobbyMapper{
         return entities.Select(entity => ToDto(ToModel(entity))).ToList();
     }
     
+    public static Hobby ToModel(this CreateHobbiesDto hobby){
+        return new Hobby{
+            Id = Guid.NewGuid(),
+            Name = hobby.Name,
+            Top = hobby.Top
+           
+        };
+    }
+
+    
 }
