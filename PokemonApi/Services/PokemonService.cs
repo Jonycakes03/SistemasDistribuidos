@@ -1,7 +1,9 @@
 using System.Formats.Asn1;
 using System.ServiceModel;
+using Microsoft.EntityFrameworkCore.Storage;
 using PokemonApi.Dtos;
 using PokemonApi.Mappers;
+using PokemonApi.Models;
 using PokemonApi.Repositories;
 using PokemonApi.Validators;
 
@@ -53,6 +55,14 @@ public class PokemonService : IPokemonService
 
         await _pokemonRepository.UpdateAsync(pokemonToUpdate, cancellationToken);
         return pokemonToUpdate.ToDto();
+    }
+
+    public async Task<List<PokemonResponseDto>>GetPokemonByName(String name, CancellationToken cancellationToken){
+        var pokemon = await _pokemonRepository.GetByNameAsync(name, cancellationToken);
+        if (pokemon is null || pokemon.Count == 0){
+            return new List<PokemonResponseDto>();
+        }
+        return pokemon.Select(pokemon => pokemon.ToDto()).ToList();
     }
 
 }
