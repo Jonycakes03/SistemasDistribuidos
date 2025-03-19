@@ -11,6 +11,8 @@ public interface IPokemonService
 {
     [OperationContract]
     Task<PokemonResponseDto> GetPokemonById(Guid id, CancellationToken cancellationToken);
+    [OperationContract]
+    Task<List<PokemonResponseDto>>GetPokemonByName(String name, CancellationToken cancellationToken);
 
     [OperationContract]
     Task<bool> DeletePokemon(Guid id, CancellationToken cancellationToken);
@@ -19,5 +21,6 @@ public interface IPokemonService
 
     [OperationContract]
     Task<PokemonResponseDto> UpdatePokemon(UpdatePokemonDto pokemon, CancellationToken cancellationToken);
+
 
 }

@@ -16,7 +16,7 @@ public class PokemonsController: ControllerBase
     {
         _pokemonService = pokemonService;
     }
-    //lcoalhost/api/v1/pokemons
+    //lcoalhost/api/v1/pokemons 
     [HttpGet("{id}")]
     public async Task<ActionResult<PokemonResponse>> GetPokemonByIdAsync(Guid id, CancellationToken cancellationToken)
     {
@@ -27,6 +27,19 @@ public class PokemonsController: ControllerBase
         return Ok(pokemon.ToDto());
 
     }
+
+    [HttpGet("name/{name}")]
+    public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByNameAsync(string name, CancellationToken cancellationToken)
+    {
+    var pokemons = await _pokemonService.GetPokemonByNameAsync(name, cancellationToken);
+    if (pokemons == null || !pokemons.Any()) // Verifica si la lista está vacía o es null
+    {
+        return NotFound();
+    }
+
+    return Ok(pokemons.Select(p => p.ToDto()).ToList());
+}
+
 
 }
 

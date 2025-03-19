@@ -18,7 +18,7 @@ public class PokemonRepository: IPokemonRepository {
         _pokemonService = new ChannelFactory<IPokemonService>(binding, endpoint).CreateChannel();
     }
 
-    public async Task<Pokemon?> GetPokemonByIdAsync(Guid id, CancellationToken cancellationToken){
+    public async Task<Pokemon?>GetPokemonByIdAsync(Guid id, CancellationToken cancellationToken){
         try 
         {
             var pokemon = await _pokemonService.GetPokemonById(id, cancellationToken);
@@ -28,6 +28,17 @@ public class PokemonRepository: IPokemonRepository {
         {
             _logger.LogWarning(ex, "Failed to get pokemon with id {id}", id);
             return null;
+        }
+    }
+
+    public async Task<List<Pokemon>>GetPokemonByNameAsync(String name, CancellationToken cancellationToken){
+        try{
+            var pokemon = await _pokemonService.GetPokemonByName(name, cancellationToken);
+            return pokemon.Select(entity =>entity.ToModel()).ToList();
+        }
+        catch{
+            _logger.LogWarning("Failed to get pokemon with name {name}", name);
+            return new List<Pokemon?>();
         }
     }
 }
