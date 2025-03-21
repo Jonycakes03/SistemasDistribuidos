@@ -8,5 +8,6 @@ public interface IHobbiesRepository{
     Task DeleteAsync(Hobby hobby, CancellationToken cancellationToken);
     Task AddAsync(Hobby hobby, CancellationToken cancellationToken);
     Task<List<Hobby>>GetByNameAsync(String name, CancellationToken cancellationToken);
+    Task UpdateAsync(Hobby hobby, CancellationToken cancellationToken);
 
 }

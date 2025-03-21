@@ -32,4 +32,9 @@ public class HobbiesRepository: IHobbiesRepository{
         var hobby = await _context.Hobbies.AsNoTracking().Where(s => EF.Functions.Like(s.Name, pattern)).ToListAsync(cancellationToken);
         return hobby.Select(entity => entity.ToModel()).ToList();
     }
+
+    public async Task UpdateAsync(Hobby hobby, CancellationToken cancellationToken){
+        _context.Hobbies.Update(hobby.ToEntity());
+        await _context.SaveChangesAsync(cancellationToken);
+    }
 }
