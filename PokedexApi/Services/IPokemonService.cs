@@ -9,4 +9,6 @@ public interface IPokemonService{
 
     Task<List<Pokemon>>GetPokemonByNameAsync(String name, CancellationToken cancellationToken);
 
+    Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken);
+
 }

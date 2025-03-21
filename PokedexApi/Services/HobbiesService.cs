@@ -20,4 +20,9 @@ public class HobbiesService : IHobbiesService
         var hobbies = await _hobbiesRepostiory.GetHobbyByNameAsync(name, cancellationToken);
     return hobbies ?? new List<Hobby>();
     }
+
+    public async Task<bool> DeleteHobbyByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await _hobbiesRepostiory.DeleteHobbyByIdAsync(id, cancellationToken);
+    }
 }

@@ -28,17 +28,37 @@ public class PokemonsController: ControllerBase
 
     }
 
-    [HttpGet("name/{name}")]
-    public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByNameAsync(string name, CancellationToken cancellationToken)
+    //[HttpGet("/name/{name})]
+    //
+
+    [HttpGet]
+    public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByNameAsync([FromQuery] String? name, CancellationToken cancellationToken)
     {
+        if (String.IsNullOrWhiteSpace(name))
+        {
+            return BadRequest("Name is required");
+        }
     var pokemons = await _pokemonService.GetPokemonByNameAsync(name, cancellationToken);
     if (pokemons == null || !pokemons.Any()) // Verifica si la lista está vacía o es null
     {
-        return NotFound();
+        return Ok(new List<PokemonResponse>());
     }
 
     return Ok(pokemons.Select(p => p.ToDto()).ToList());
-}
+    }
+    //404 not found
+    //204 NOContent (se enconttro y se eelimon el pokemon de manera correcta pero no regresa nada)
+    //200 ok (se encontro y regresa el pokemon)
+    //{status succes}
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeletePokemonById(Guid id, CancellationToken cancellationToken){
+        var deleted = await _pokemonService.DeletePokemonByIdAsync(id, cancellationToken);
+        if (deleted){
+            return NoContent(); //204
+        }
+        return NotFound(); //404
+    }
 
 
 }

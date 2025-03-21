@@ -7,4 +7,6 @@ public interface IPokemonRepository
     Task<Pokemon?> GetPokemonByIdAsync(Guid id, CancellationToken cancellationToken);
 
     Task<List<Pokemon>>GetPokemonByNameAsync(String name, CancellationToken cancellationToken);
+
+    Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken);
 }

@@ -20,4 +20,9 @@ public class PokemonService : IPokemonService
         var pokemons = await _pokemonRepository.GetPokemonByNameAsync(name, cancellationToken);
     return pokemons ?? new List<Pokemon>();
     }
+
+    public async Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await _pokemonRepository.DeletePokemonByIdAsync(id, cancellationToken);
+    }
 }

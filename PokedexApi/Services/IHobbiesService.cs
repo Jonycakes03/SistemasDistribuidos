@@ -9,4 +9,5 @@ public interface IHobbiesService{
 
     Task<List<Hobby>>GetHobbyByNameAsync(String name, CancellationToken cancellationToken);
 
+    Task<bool> DeleteHobbyByIdAsync(Guid id, CancellationToken cancellationToken);
 }
