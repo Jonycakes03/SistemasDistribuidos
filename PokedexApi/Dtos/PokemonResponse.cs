@@ -6,6 +6,8 @@ public class PokemonResponse{
     public required string Type {get; set;}
     public int Level{get; set;}
 
+    public string Weakness{get; set;}
+
     public required StatsResponse Stats{get;set;}
 
 }

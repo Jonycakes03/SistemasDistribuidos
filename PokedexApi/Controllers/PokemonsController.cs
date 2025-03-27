@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using PokedexApi.Services;
 using PokedexApi.Mappers;
 using PokedexApi.Dtos;
+using PokedexApi.Infrastrucure.Soap.Dtos;
+using PokedexApi.Exceptions;
 
 namespace PokedexApi.Controllers;
 
@@ -18,7 +20,7 @@ public class PokemonsController: ControllerBase
     }
     //lcoalhost/api/v1/pokemons 
     [HttpGet("{id}")]
-    public async Task<ActionResult<PokemonResponse>> GetPokemonByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<PokemonResponse>> GetPokemonById(Guid id, CancellationToken cancellationToken)
     {
         var pokemon = await _pokemonService.GetPokemonByIdAsync(id, cancellationToken);
         if (pokemon is null){
@@ -60,6 +62,52 @@ public class PokemonsController: ControllerBase
         return NotFound(); //404
     }
 
+    //200 - ok (se creo el pokemon de manera correcta)
+    //201 - Created (se creo el pokemon de manera correcta, en header regresa la url del recurso creado)
+    [HttpPost] //400- Bad request(usuario ingreso un valor incorrecto ) 409 - Conflict (el recurso ya existe)
+    public async Task<ActionResult<PokemonResponse>> CreatePokemon([FromBody] CreatePokemonRequest pokemon, CancellationToken cancellationToken){
+        try{
+            var createdPokemon = await _pokemonService.CreatePokemonAsync(pokemon.ToModel(), cancellationToken);
+        return CreatedAtAction(nameof(GetPokemonById), new{id = createdPokemon.Id},createdPokemon.ToDto());
+        }
+        catch(PokemonValidationException ex)
+        {
+            return BadRequest(new{message = ex.Message});
+        }
+        catch(NameValidationException ex)
+    {
+        return Conflict(new {message = "Pokemon {Name}already exists", pokemon.Name});
+    }
+        
+    }
+    //put - actualiza todo el recurso
+    //404 - Not found (no se encontro el recurso)
+    //400 - Bad request (usuario ingreso un valor incorrecto)
+    //200 - Ok (se actualizo el pokemon de manera correcta)
+    //409 - Conflict (el recurso ya existe)
+    //204 - No content (se elimino el pokemon de manera correcta pero no regresa nada)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePokemon(Guid id, [FromBody] UpdatePokemonRequest pokemon, CancellationToken cancellationToken){
+        try{
+            await _pokemonService.UpdatePokemonAsync(id, pokemon.ToModel(), cancellationToken);
+            return NoContent();
+        }
+        catch(NameValidationException)
+        {
+        return Conflict(new {message = "Pokemon {Name}already exists", pokemon.Name});
 
+        }
+        catch (PokemonValidationException ex)
+        {
+            return BadRequest(new {message =ex.Message});
+        }
+        catch(PokemonNotFoundException)
+        {
+            return NotFound();
+
+        }
+    }
+//patch - actualiza solo los campos que se envian
+//[httppatch]
 }
 

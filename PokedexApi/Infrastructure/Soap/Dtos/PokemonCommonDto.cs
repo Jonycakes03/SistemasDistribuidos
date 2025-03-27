@@ -15,9 +15,11 @@ public class PokemonCommonDto{
     [DataMember(Name ="Level", Order =3)]
 
     public int Level {get; set;}
+    [DataMember(Name ="Weakness", Order =4)]
+    public string Weakness {get; set;}
 
     
-    [DataMember(Name ="Stats", Order =4)]
+    [DataMember(Name ="Stats", Order =5)]
 
     public StatsDto Stats {get; set;}
 }
