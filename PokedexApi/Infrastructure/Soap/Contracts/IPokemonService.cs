@@ -1,8 +1,8 @@
 using System.ServiceModel;
+using PokedexApi.Infrastrucure.Soap.Dtos;
 
-using PokemonApi.Dtos;
 
-namespace PokemonApi.Services;
+namespace PokedexApi.Infrastrucure.Soap.Contracts;
 
 [ServiceContract(Name = "PokemonService", Namespace ="http://pokemon-api/pokemon-service")]
 
@@ -11,7 +11,6 @@ public interface IPokemonService
 {
     [OperationContract]
     Task<PokemonResponseDto> GetPokemonById(Guid id, CancellationToken cancellationToken);
-
     [OperationContract]
     Task<List<PokemonResponseDto>>GetPokemonByName(String name, CancellationToken cancellationToken);
 
@@ -22,5 +21,6 @@ public interface IPokemonService
 
     [OperationContract]
     Task<PokemonResponseDto> UpdatePokemon(UpdatePokemonDto pokemon, CancellationToken cancellationToken);
+
 
 }

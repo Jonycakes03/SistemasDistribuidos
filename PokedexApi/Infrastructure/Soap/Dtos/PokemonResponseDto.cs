@@ -1,6 +1,7 @@
 using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
-namespace PokemonApi.Dtos;
+namespace PokedexApi.Infrastrucure.Soap.Dtos;
 
 [DataContract(Name = "PokemonResponseDto", Namespace = "http://pokemon-api/pokemon-service")]
 public class PokemonResponseDto
@@ -14,7 +15,9 @@ public class PokemonResponseDto
     [DataMember(Name = "Level", Order = 4)]
     public int Level {get; set;}
     [DataMember(Name = "Weakness", Order = 5)]
-    public string Weakness {get; set;}    
+    public string Weakness {get; set;}
+
+    
     [DataMember(Name = "Stats", Order = 6)]
     public StatsDto Stats {get; set;}
 
