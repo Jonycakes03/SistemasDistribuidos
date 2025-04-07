@@ -34,3 +34,23 @@ export const deleteTires = async (id) => {
     where: { id }
   });
 };
+
+export const getPaginatedTires = async (page =1, size =10) =>{
+  const skip = (page -1)* size;
+
+  const [tires, total] = await Promise.all([
+    prisma.tires.findMany({
+      skip,
+      take: size,
+    }),
+    prisma.tires.count(),
+  ]);
+
+  return {
+    data: tires,
+    total,
+    page,
+    size,
+    totalPage: Math.ceil(total/size),
+  };
+}

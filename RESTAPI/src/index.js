@@ -17,6 +17,9 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+//swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 //ruta
 app.use('/api/resources/llantas', llantasRoutes);
