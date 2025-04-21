@@ -30,7 +30,7 @@ export const updateTires = async (id, data) => {
 
 
 export const deleteTires = async (id) => {
-  return await prisma.llantas.delete({
+  return await prisma.tires.delete({
     where: { id }
   });
 };

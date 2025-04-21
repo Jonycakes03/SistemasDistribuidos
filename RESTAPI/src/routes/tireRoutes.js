@@ -1,6 +1,5 @@
 import express from 'express';
 import {
-  getAllTires,
   getTiresById,
   createTires,
   updateTires,
@@ -17,32 +16,6 @@ const router = express.Router();
  *   description: Endpoints para gestión de llantas
  */
 
-/**
- * @swagger
- * /api/resources/llantas:
- *   get:
- *     summary: Obtener todas las llantas
- *     tags: [Llantas]
- *     responses:
- *       200:
- *         description: Lista de llantas obtenida exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- */
-
-
-router.get('/', async (req, res) => {
-  try {
-    const tires = await getAllTires();
-    res.status(200).json(tires); 
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch tires' }); 
-  }
-});
 /**
  * @swagger
  * /api/resources/llantas/{id}:
@@ -68,11 +41,11 @@ router.get('/:id', async (req, res) => {
   try {
     const llanta = await getTiresById(req.params.id);
     if (!llanta) {
-      return res.status(404).json({ error: 'Tire not found' }); // 404 Not Found
+      return res.status(404).json({ message: 'llanta no encontrada', error: error.message }); // 404 Not Found
     }
     res.status(200).json(llanta);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch tire' });
+    res.status(500).json({ error: 'Error al cargar llanta', error: error.message });
   }
 });
 /**
@@ -122,10 +95,11 @@ router.post('/', async (req, res) => {
     return res.status(201).json(nuevaLlanta);
   } catch (error) {
     if (error.code === 'P2002') {
-      // Prisma: registro duplicado
       return res.status(409).json({ message: 'La llanta ya existe' });
     }
-    return res.status(400).json({ message: 'Error al crear la llanta' });
+    console.error(error);
+    console.log('DATABASE_URL:', process.env.DATABASE_URL);
+    return res.status(400).json({message: 'Erorr al crear la llanta', error: error.message});
   }
 });
 /**
@@ -159,8 +133,6 @@ router.post('/', async (req, res) => {
  *         description: Llanta actualizada exitosamente
  *       400:
  *         description: Error al actualizar
- *       404:
- *         description: Llanta no encontrada
  */
 
 router.put('/:id', async (req, res) => {
@@ -168,7 +140,7 @@ router.put('/:id', async (req, res) => {
     const updated = await updateTires(req.params.id, req.body);
     res.status(200).json(updated); 
   } catch (error) {
-    res.status(400).json({ error: 'Failed to update tire' });
+    res.status(400).json({ error: 'llanta no encontrada' });
   }
 });
 
@@ -199,7 +171,7 @@ router.delete('/:id', async (req, res) => {
     await deleteTires(req.params.id);
     res.status(204).send(); 
   } catch (error) {
-    res.status(400).json({ error: 'Failed to delete tire' });
+    res.status(400).json({ error: 'Failed to delete tire', error: error.message });
   }
 });
 
@@ -256,8 +228,8 @@ router.delete('/:id', async (req, res) => {
  */
 
 router.get('/', async (req, res) => {
-  const page = parseInt(req,Query,page) || 1;
-  const size = parseInt(req.Query.size) || 10;
+  const page = parseInt(req.query.page) || 1;
+  const size = parseInt(req.query.size) || 10;
 
   try{
     const result = await getPaginatedTires(page, size);
