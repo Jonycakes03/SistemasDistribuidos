@@ -6,6 +6,7 @@ import {
   deleteTires,
   getPaginatedTires
 } from '../services/tiresService.js';
+import { authenticateToken } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', async (req, res) => {
  *         description: Llanta duplicada
  */
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
   const { name, brand, size } = req.body;
 
   if (!name || !brand || !size) {

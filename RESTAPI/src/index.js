@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import {swaggerUi, swaggerSpec} from './config/swagger.js';
-
+import authRoutes from './routes/authRoutes.js';
 
 import llantasRoutes from './routes/tireRoutes.js';
 
@@ -22,6 +22,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 //ruta
+app.use('/api/auth', authRoutes);
 app.use('/api/resources/llantas', llantasRoutes);
 app.use(errorHandler);
 
