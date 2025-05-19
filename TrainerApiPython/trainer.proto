@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package trainerpb;
+
+option csharp_namespace = "TrainerApiPython";
+
+import "google/protobuf/timestamp.proto";
+
+service TrainerService{
+    rpc GetTrainer (TrainerByIdRequest) returns (TrainerResponse); //unary call
+    rpc CreateTrainer(stream CreateTrainerRequest) returns (CreateTrainersResponse);
+}
+
+message CreateTrainersResponse {
+    int32 success_count = 1;
+    repeated TrainerResponse trainers = 2;
+}
+
+message CreateTrainerRequest {
+    string name = 1;
+    int32 age = 2;
+    google.protobuf.Timestamp birthdate = 3;
+    repeated Medals medals = 4;
+}
+
+message TrainerByIdRequest {
+    string id = 1;
+}
+
+message TrainerResponse {
+    string id = 1;
+    string name = 2;
+    int32 age = 3;
+    google.protobuf.Timestamp birthdate = 4;
+    repeated Medals medals = 5;
+    google.protobuf.Timestamp createdAt = 6;
+}
+
+message Medals{
+    string region = 1;
+    MedalType type = 2;
+}
+
+enum MedalType {
+    UNKNOWN = 0;
+    GOLD = 1;
+    SILVER = 2;
+    BRONZE = 3;
+}
