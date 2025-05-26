@@ -1,3 +1,4 @@
+import asyncio
 import uuid
 from datetime import datetime
 from google.protobuf.timestamp_pb2 import Timestamp
@@ -72,3 +73,35 @@ class TrainerService(trainer_pb2_grpc.TrainerServiceServicer):
             success_count=count,
             trainers=created_trainers
         )
+
+    def GetTrainersByName(self, request, context):
+        if len(request.name) <= 1:
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details("Name must be at least 2 characters long")
+            return  
+
+        trainers = self._trainer_repository.get_by_name(request.name)
+
+        for trainer_data in trainers:
+            birthdate = Timestamp()
+            birthdate.FromDatetime(trainer_data.get("birthdate", datetime.utcnow()))
+
+            created_at = Timestamp()
+            created_at.FromDatetime(trainer_data.get("createdAt", datetime.utcnow()))
+
+            medals = [
+                trainer_pb2.Medals(region=m["region"], type=m["type"])
+                for m in trainer_data.get("medals", [])
+            ]
+
+            yield trainer_pb2.TrainerResponse(
+                id=trainer_data["id"],
+                name=trainer_data["name"],
+                age=trainer_data["age"],
+                birthdate=birthdate,
+                medals=medals,
+                createdAt=created_at
+            )
+
+            # Simula el delay de 5 segundos como en C# (bloqueante aquí)
+            asyncio.run(asyncio.sleep(5))

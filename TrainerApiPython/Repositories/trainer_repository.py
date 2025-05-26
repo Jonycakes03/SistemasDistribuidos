@@ -7,3 +7,8 @@ class TrainerRepository:
 
     def insert_trainer(self, trainer_data):
         self.collection.insert_one(trainer_data)
+
+    def get_by_name(self, name):
+        cursor = self.collection.find({"name": {"$regex": name, "$options": "i"}})
+        return list(cursor)
+

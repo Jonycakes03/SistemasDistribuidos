@@ -9,6 +9,11 @@ import "google/protobuf/timestamp.proto";
 service TrainerService{
     rpc GetTrainer (TrainerByIdRequest) returns (TrainerResponse); //unary call
     rpc CreateTrainer(stream CreateTrainerRequest) returns (CreateTrainersResponse);
+    rpc GetTrainersByName(GetTrainersByNameRequest) returns (stream TrainerResponse);
+}
+
+message GetTrainersByNameRequest {
+    string name =1;
 }
 
 message CreateTrainersResponse {
