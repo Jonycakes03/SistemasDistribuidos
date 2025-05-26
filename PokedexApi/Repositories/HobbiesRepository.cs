@@ -1,5 +1,5 @@
 using System.ServiceModel;
-using PokedexApi.Infrastrucure.Soap.Contracts;
+using PokedexApi.Infrastructure.Soap.Contracts;
 using PokedexApi.Models;
 using PokedexApi.Mappers;
 

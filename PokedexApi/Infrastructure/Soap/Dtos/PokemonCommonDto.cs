@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace PokedexApi.Infrastrucure.Soap.Dtos;
+namespace PokedexApi.Infrastructure.Soap.Dtos;
 
 [DataContract(Name = "PokemonCommonDto", Namespace = "http://pokemon.api/pokemon-service")]
 [KnownType(typeof(CreatePokemonDto))]

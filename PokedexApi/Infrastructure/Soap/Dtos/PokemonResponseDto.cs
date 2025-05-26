@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 
-namespace PokedexApi.Infrastrucure.Soap.Dtos;
+namespace PokedexApi.Infrastructure.Soap.Dtos;
 
 [DataContract(Name = "PokemonResponseDto", Namespace = "http://pokemon-api/pokemon-service")]
 public class PokemonResponseDto
