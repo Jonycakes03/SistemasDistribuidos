@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace PokedexApi.Infrastrucure.Soap.Dtos;
+namespace PokedexApi.Infrastructure.Soap.Dtos;
 
 [DataContract(Name = "HobbiesResponseDto", Namespace = "http://pokemon-api/hobbies-service")]
 public class HobbiesResponseDto

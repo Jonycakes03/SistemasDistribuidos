@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokedexApi.Services;
 using PokedexApi.Mappers;
 using PokedexApi.Dtos;
-using PokedexApi.Infrastrucure.Soap.Dtos;
+using PokedexApi.Infrastructure.Soap.Dtos;
 using PokedexApi.Exceptions;
 
 namespace PokedexApi.Controllers;
