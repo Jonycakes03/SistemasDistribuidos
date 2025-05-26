@@ -3,6 +3,7 @@ using Grpc.Core;
 using TrainerApi.Mappers;
 using TrainerApi.Repositories;
 
+
 namespace TrainerApi.Services;
 
 public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase
@@ -62,5 +63,6 @@ public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase
         }
 
     }
+
 
 }
