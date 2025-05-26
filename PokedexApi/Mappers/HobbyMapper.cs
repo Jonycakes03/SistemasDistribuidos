@@ -1,5 +1,5 @@
 using PokedexApi.Dtos;
-using PokedexApi.Infrastrucure.Soap.Dtos;
+using PokedexApi.Infrastructure.Soap.Dtos;
 using PokedexApi.Models;
 
 namespace PokedexApi.Mappers;

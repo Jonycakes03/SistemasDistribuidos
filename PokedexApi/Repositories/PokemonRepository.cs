@@ -1,6 +1,6 @@
 using System.ServiceModel;
-using PokedexApi.Infrastrucure.Soap.Contracts;
-using PokedexApi.Infrastrucure.Soap.Dtos;
+using PokedexApi.Infrastructure.Soap.Contracts;
+using PokedexApi.Infrastructure.Soap.Dtos;
 using PokedexApi.Models;
 using PokedexApi.Mappers;
 using PokedexApi.Exceptions;
