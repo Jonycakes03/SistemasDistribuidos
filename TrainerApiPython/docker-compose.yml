@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  trainer_api:
+    build:
+      context: .  
+    container_name: trainer_api
+    depends_on:
+      - mongo
+    ports:
+      - "50051:50051"
+    environment:
+      MONGODB_CONNECTION_STRING: mongodb://mongo:27017
+      MONGODB_DATABASE_NAME: TrainerDB
+      MONGODB_TRAINERS_COLLECTION_NAME: trainers
+
+volumes:
+  mongo_data:
